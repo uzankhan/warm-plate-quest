@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Clock, Flame, Star, Users, Heart, Printer, Share2, ChevronLeft, ThermometerSun, ChefHat, Utensils } from "lucide-react";
 import { toast } from "sonner";
-import { getRecipe, getRelated } from "@/data/recipes";
+import { getRecipe, getRelated, type Recipe } from "@/data/recipes";
 import { useFavorites, pushRecent } from "@/lib/user-store";
 import { RecipeCard } from "@/components/RecipeCard";
 import { cn } from "@/lib/utils";
@@ -65,7 +65,7 @@ export const Route = createFileRoute("/recipes/$slug")({
 });
 
 function RecipeDetail() {
-  const { recipe } = Route.useLoaderData();
+  const { recipe } = Route.useLoaderData() as { recipe: Recipe };
   const related = getRelated(recipe.slug);
   const { isFav, toggle } = useFavorites();
   const fav = isFav(recipe.slug);
